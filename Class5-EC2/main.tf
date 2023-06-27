@@ -1,8 +1,12 @@
-resource "aws_security_group" "allow_tls" {
-  name        = "allow_tls"
-  description = "Allow TLS inbound traffic"
-  vpc_id     = aws_vpc.main.id
+resource "aws_instance" "web" {
+  ami           = "ami-035838d4d7325a96a"
+  instance_type = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.allow_tls1.id]
+}
 
+resource "aws_security_group" "allow_tls1" {
+  name        = "allow_tls1"
+  description = "Allow TLS inbound traffic"
 
     ingress {
     description      = "TLS from VPC"
@@ -27,3 +31,4 @@ resource "aws_security_group" "allow_tls" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
 }
+

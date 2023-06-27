@@ -1,12 +1,15 @@
 resource "aws_iam_user" "user" {
   name = "kaizen"
 }
+
 resource "aws_iam_user" "user1" {
-  name = "kaizen1"
+  name = "janelle"
 }
-resource "aws_iam_group" "developers" {
+
+resource "aws_iam_group" "group" {
   name = "engineers"
 }
+
 resource "aws_iam_group_membership" "team" {
   name = "tf-testing-group-membership"
 
@@ -15,5 +18,5 @@ resource "aws_iam_group_membership" "team" {
     aws_iam_user.user1.name,
   ]
 
-  group = aws_iam_group.developers.name
+  group = aws_iam_group.group.name
 }

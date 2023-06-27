@@ -15,15 +15,17 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = "t2.micro"
   associate_public_ip_address = true
-  key_name = aws_key_pair.deployer.key_name
-  vpc_security_group_ids = [aws_security_group.allow_tls.id]
-  subnet_id = aws_subnet.main1.id
-  user_data = file("apache.sh")
+  key_name                    = aws_key_pair.deployer.key_name
+  vpc_security_group_ids      = [aws_security_group.allow_tls.id]
+  subnet_id                   = aws_subnet.main1.id
+  user_data                   = file("apache.sh")
 }
+
 resource "aws_key_pair" "deployer" {
-  key_name   = "lesson-key"
+  key_name   = "my-key"
   public_key = file("~/.ssh/id_rsa.pub")
 }
+
